@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
+import Loading from "./components/Loading";
 const ganre = [
   { id: 28, name: "action" },
   { id: 12, name: "adventure" },
@@ -30,26 +31,73 @@ function App() {
   const [populary, setPopulary] = useState([]);
   const [ganres, setGanres] = useState([])
   const [ganrenum, setganrenum] = useState([])
+  const [inp, setInp] = useState("")
+
+  useEffect(() => {
+    if (inp === "") {
+      fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (inp === "") {
+            setPopulary(res.results)
+            if (res.total_pages) {
+              let arr = page > 1 ? [page - 1] : []
+              for (let i = page; i < res.total_pages; i++) {
+                arr.push(i)
+                if (i - page === 10) {
+                  break
+                }
+              }
+              setPageNums(arr)
+            }
+            setGanres(ganre)
+          }
+        }
+        );
+    } else {
+
+      fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setPopulary(res.results)
+          if (res.total_pages) {
+            let arr = page > 1 ? [page - 1] : []
+            for (let i = page; i < res.total_pages; i++) {
+              arr.push(i)
+              if (i - page === 10) {
+                break
+              }
+            }
+            setPageNums(arr)
+          }
+          setGanres(ganre)
+        }
+        );
+    }
+  }, [inp]);
+
+
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
       .then((res) => res.json())
       .then((res) => {
-        setPopulary(res.results)
-        if (res.total_pages) {
-          let arr = page > 1 ? [page - 1] : []
-          for (let i = page; i < res.total_pages; i++) {
-            arr.push(i)
-            if (i - page === 10) {
-              break
+        if (inp === "") {
+          setPopulary(res.results)
+          if (res.total_pages) {
+            let arr = page > 1 ? [page - 1] : []
+            for (let i = page; i < res.total_pages; i++) {
+              arr.push(i)
+              if (i - page === 10) {
+                break
+              }
             }
+            setPageNums(arr)
           }
-          setPageNums(arr)
+          setGanres(ganre)
         }
-        setGanres(ganre)
       }
       );
   }, [page]);
-console.log(ganrenum);
 
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/discover/movie?${api_key}&with_genres=${ganrenum}&page=${page}`)
@@ -69,12 +117,20 @@ console.log(ganrenum);
       })
   }, [ganrenum, page])
 
+  const btn = document.querySelectorAll(".btn")
   return <div className="App">
+    <input type="text"
+     className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" 
+     onChange={(e) => setInp(e.target.value)} value={inp}
+      placeholder="search a movie" />
+
     <div className="ganres">
       {ganres.map((e, i) => {
         return <button key={i} onClick={() => {
-          setganrenum([...ganrenum,e.id])
-        }}>{e.name}</button>
+          btn[i].classList.toggle("change")
+          setPage(1)
+          setganrenum([...ganrenum, e.id])
+        }} className="btn">{e.name}</button>
       })}
     </div>
     <div className="parent">
@@ -86,10 +142,10 @@ console.log(ganrenum);
     </div>
 
     <div className="pages">
-
       {pageNums.map((e, i) => {
+
         if (e >= 1) {
-          return <button key={i} onClick={() => { setPage(e) }}>{e}</button>
+          return <button key={i} onClick={() => setPage(e)} className="pagesBtn">{e}</button>
         }
 
       })}

@@ -19,6 +19,7 @@
 .pages {
   display: flex;
   gap: 10px;
+  padding:30px;
 }
 
 .parent {
@@ -38,8 +39,77 @@
   padding-top: 20px;
 }
 
-.ganres>button {
-  padding: 9px 11px;
-  background-color: black;
-  color: white;
+.btn {
+  width: 100px;
+  height: 40px;
+  background: #fff;
+  color: black;
 }
+.change{
+  background-color:red;
+}
+.pagesBtn{
+  width:40px;
+  height:40px;
+  background:white;
+  color:black;
+}
+
+.backdrop{
+  width:100%;
+  height:100vh;
+}
+
+#parentSingle{
+  width:100%; 
+  height:80vh;
+  position:absolute;
+  top:100px;
+  display:flex  ;
+  justify-content:center;
+  gap:200px;
+}
+
+.img{
+  width:350px;
+  height:500px;
+  border:30px solid rgb(0,0,0,0.7);
+  border-radius:30px
+}
+
+
+#info{
+  width:600px;
+  padding:20px;
+  height:500px;
+  background: rgb(0,0,0,0.7);
+  border-radius:30px;
+  display:flex;
+  flex-direction:column;
+  gap:20px
+}
+  
+#info>h1{
+  font-size:25px;
+}
+
+
+
+
+
+
+
+
+/* 
+.loading{
+    width:100%;
+    height:100vh;
+    background-color:black;
+    position:fixed;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+  } */
