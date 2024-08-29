@@ -55,50 +55,6 @@
   color:black;
 }
 
-.backdrop{
-  width:100%;
-  height:100vh;
-}
-
-#parentSingle{
-  width:100%; 
-  height:80vh;
-  position:absolute;
-  top:100px;
-  display:flex  ;
-  justify-content:center;
-  gap:200px;
-}
-
-.img{
-  width:350px;
-  height:500px;
-  border:30px solid rgb(0,0,0,0.7);
-  border-radius:30px
-}
-
-
-#info{
-  width:600px;
-  padding:20px;
-  height:500px;
-  background: rgb(0,0,0,0.7);
-  border-radius:30px;
-  display:flex;
-  flex-direction:column;
-  gap:20px
-}
-  
-#info>h1{
-  font-size:25px;
-}
-
-
-
-
-
-
-
 
 /* 
 .loading{

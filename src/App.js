@@ -119,17 +119,17 @@ function App() {
 
   const btn = document.querySelectorAll(".btn")
   return <div className="App">
-    <input type="text"
-     className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" 
-     onChange={(e) => setInp(e.target.value)} value={inp}
-      placeholder="search a movie" />
-
+    <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp}placeholder="search a movie" />
     <div className="ganres">
       {ganres.map((e, i) => {
         return <button key={i} onClick={() => {
           btn[i].classList.toggle("change")
           setPage(1)
-          setganrenum([...ganrenum, e.id])
+          if (btn[i].className !== "btn") {
+            setganrenum([...ganrenum, e.id])            
+          }else{
+            setganrenum(ganrenum.filter((elm)=>elm !== e.id))
+          }
         }} className="btn">{e.name}</button>
       })}
     </div>
@@ -147,7 +147,7 @@ function App() {
         if (e >= 1) {
           return <button key={i} onClick={() => setPage(e)} className="pagesBtn">{e}</button>
         }
-
+        
       })}
     </div>
   </div>;

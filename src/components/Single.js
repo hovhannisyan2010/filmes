@@ -14,12 +14,12 @@ function Single() {
 
   return (
     <div className="w-full">
-      <img src={`https://image.tmdb.org/t/p/w500${single.backdrop_path}`} className="backdrop" />
-      <div id="parentSingle" className="lg:flax flax-col">
-        <img src={`https://image.tmdb.org/t/p/w500${single.poster_path}`} className="img" />
-        <div id="info" className="">
-          <h1>{single.original_title}</h1>
-          <h1>Date:  {single.release_date}</h1>
+      <img src={`https://image.tmdb.org/t/p/w500${single.backdrop_path}`} className="w-full h-screen absolute top-0 -z-10" />
+      <div  className="w-full h-[80vh] flex justify-center items-center gap-[200px]">
+        <img src={`https://image.tmdb.org/t/p/w500${single.poster_path}`} className="w-[350px] h-[500px] border-[30px] border-[rgb(0,0,0,0.7)] rounded-[30px]" />
+        <div className="w-[600px] h-[500px] p-[20px] bg-[rgb(0,0,0,0.7)] rounded-[30px] flex flex-col gap-5 ">
+          <h1 className="text-3xl">{single.original_title}</h1>
+          <h1 className="text-3xl">Date:  {single.release_date}</h1>
           <h3>{single.overview}</h3>
         </div>
       </div>
