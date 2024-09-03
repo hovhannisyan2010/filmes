@@ -33,6 +33,7 @@ function App() {
   const [ganrenum, setganrenum] = useState([])
   const [inp, setInp] = useState("")
 
+
   useEffect(() => {
     if (inp === "") {
       fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
@@ -116,24 +117,24 @@ function App() {
         }
       })
   }, [ganrenum, page])
-
   const btn = document.querySelectorAll(".btn")
-  return <div className="App">
-    <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp}placeholder="search a movie" />
-    <div className="ganres">
+
+  return <div className="flex justify-center items-center gap-[30px] flex-wrap">
+    <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />
+    <div className="flex justify-center items-center gap-[30px] flex-wrap pt-5">
       {ganres.map((e, i) => {
         return <button key={i} onClick={() => {
           btn[i].classList.toggle("change")
           setPage(1)
           if (btn[i].className !== "btn") {
-            setganrenum([...ganrenum, e.id])            
-          }else{
-            setganrenum(ganrenum.filter((elm)=>elm !== e.id))
+            setganrenum([...ganrenum, e.id])
+          } else {
+            setganrenum(ganrenum.filter((elm) => elm !== e.id))
           }
         }} className="btn">{e.name}</button>
       })}
     </div>
-    <div className="parent">
+    <div className="flex justify-center items-center gap-[30px] flex-wrap">
       {
         populary.map((e) => {
           return <Card films={e} key={e.id} />
@@ -141,13 +142,11 @@ function App() {
       }
     </div>
 
-    <div className="pages">
+    <div className="flex gap-3 p-8">
       {pageNums.map((e, i) => {
-
         if (e >= 1) {
-          return <button key={i} onClick={() => setPage(e)} className="pagesBtn">{e}</button>
+          return <button key={i} onClick={() => setPage(e)} className="w-10 h-10 bg-white text-black">{e}</button>
         }
-        
       })}
     </div>
   </div>;

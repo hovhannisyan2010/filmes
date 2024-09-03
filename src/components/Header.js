@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import "cinema.htm"
 function Header() {
   return (
     <header className='w-full h-[110px] bg-black text-white flex justify-between p-[20px] items-center'>

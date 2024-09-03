@@ -1,43 +1,5 @@
-.App {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
 
-.card {
-  width: 400px;
-  height: 600px;
-}
 
-.img {
-  width: 400px;
-  height: 500px;
-}
-
-.pages {
-  display: flex;
-  gap: 10px;
-  padding:30px;
-}
-
-.parent {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.ganres {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding-top: 20px;
-}
 
 .btn {
   width: 100px;
@@ -45,15 +7,15 @@
   background: #fff;
   color: black;
 }
+
+
 .change{
   background-color:red;
 }
-.pagesBtn{
-  width:40px;
-  height:40px;
-  background:white;
-  color:black;
-}
+
+
+
+
 
 
 /* 
