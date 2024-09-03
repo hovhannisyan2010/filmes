@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
-import Loading from "./components/Loading";
 const ganre = [
   { id: 28, name: "action" },
   { id: 12, name: "adventure" },
@@ -73,8 +72,9 @@ function App() {
           }
           setGanres(ganre)
         }
-        );
+      );
     }
+    setPage(1)
   }, [inp]);
 
 
