@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Header from "./Header";
 const api_key = "api_key=9b702a6b89b0278738dab62417267c49";
 
 function Single() {
@@ -26,6 +27,7 @@ function Single() {
   }, []);
   return (
     <div className="w-full">
+      <Header />
       <img
         src={`https://image.tmdb.org/t/p/w500${single.backdrop_path}`}
         className="w-full h-screen absolute top-0 -z-10"
@@ -46,7 +48,7 @@ function Single() {
         <div className="w-full flex overflow-x-scroll gap-4">
           {credits.map((e, i) => {
             return (
-              <div key={i} className="w-full text-center">
+              <div key={i} className="w-[250px] text-center">
                 <img
                   src={`https://image.tmdb.org/t/p/w500${e.profile_path}`}
                   className="w-[250px] h-[400px]"
@@ -59,39 +61,33 @@ function Single() {
       </div>
       <div className="w-full h-[300px] ">
         <h1 className="text-3xl">VIDEOS</h1>
-        <div className="flex gap-6 overflow-x-scroll">
+        <div className="flex gap-6 overflow-x-scroll ">
           {video.map((e) => {
             return (
-              <div
-                key={e.key}
-                onClick={() => {
-                  // <div className="w-full h-screen bg-[rgba(0,0,0,0.76)] absolute top-0"></div>
-                }}
-              >
-               
+              <div key={e.key}>
                 <div
-                  className="w-[300px] h-[270px]  bg-[rgb(255,83,83)] z-[11111]  cursor-pointer "
-                  onClick={() => setVid(e.key)}
-                >
-                   <iframe
-                  allowFullScreen
-                  src={`https://www.youtube.com/embed/${e.key}`}
-                  className="h-[270px] w-[300px] "
-                ></iframe>
+                  className="relative"
+                  onClick={() => setVid(e.key)}>
+                  <iframe
+                    allowFullScreen
+                    src={`https://www.youtube.com/embed/${e.key}`}
+                    className="h-[270px] w-[300px]"
+                  ></iframe>
+                  <div className="w-[300px] h-[270px]  bg-none absolute z-50 top-0 cursor-pointer "></div>
                 </div>
-                
+
               </div>
             );
           })}
         </div>
       </div>
-      {vid !== "" ?<div className="w-full h-screen fixed z-50 bg-[rgba(0,0,0,0.76)] top-0 flex justify-center items-center cursor-pointer" onClick={()=>setVid("")}>
+      {vid !== "" ? <div className="w-full h-screen fixed z-50 bg-[rgba(0,0,0,0.76)] top-0 flex justify-center items-center cursor-pointer p-10" onClick={() => setVid("")}>
         <iframe
-                  allowFullScreen
-                  src={`https://www.youtube.com/embed/${vid}`}
-                  className="h-[60%] w-[70%] relative"
-                ></iframe>
-    </div>:null}
+          allowFullScreen
+          src={`https://www.youtube.com/embed/${vid}`}
+          className="h-[80%] w-[70%] relative"
+        ></iframe>
+      </div> : null}
     </div>
   );
 }
