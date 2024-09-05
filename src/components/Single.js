@@ -14,7 +14,6 @@ function Single() {
       .then((res) => res.json())
       .then((res) => setSingle(res));
   }, []);
-  console.log(video);
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/movie/${id}/credits?${api_key}`)
       .then((response) => response.json())
@@ -35,7 +34,7 @@ function Single() {
       <div className="w-full h-[80vh] flex justify-center items-center gap-[100px]">
         <img
           src={`https://image.tmdb.org/t/p/w500${single.poster_path}`}
-          className="w-[350px] h-[500px] border-[30px] border-[rgba(0,0,0,0.7)] rounded-[30px]"
+          className="w-[350px] h-[500px] border-[30px] border-[rgba(0,0,0,0.7)] rounded-[30px] md:hidden"
         />
         <div className="w-[600px] h-[500px] p-[20px] bg-[rgb(0,0,0,0.7)] rounded-[30px] flex flex-col gap-5 ">
           <h1 className="text-3xl">{single.original_title}</h1>
@@ -43,8 +42,8 @@ function Single() {
           <h3>{single.overview}</h3>
         </div>
       </div>
-      <div className="bg-black">
-        <h1 className="text-3xl">Credits</h1>
+      <div className="bg-black ">
+        <h1 className="text-3xl py-6">Credits</h1>
         <div className="w-full flex overflow-x-scroll gap-4">
           {credits.map((e, i) => {
             return (
@@ -59,12 +58,13 @@ function Single() {
           })}
         </div>
       </div>
-      <div className="w-full h-[300px] ">
+        <div className="w-full h-[300px] pt-5">
         <h1 className="text-3xl">VIDEOS</h1>
         <div className="flex gap-6 overflow-x-scroll ">
-          {video.map((e) => {
-            return (
-              <div key={e.key}>
+      {    
+        video.map((e) => {
+          return (
+            <div key={e.key}>
                 <div
                   className="relative"
                   onClick={() => setVid(e.key)}>
@@ -72,7 +72,7 @@ function Single() {
                     allowFullScreen
                     src={`https://www.youtube.com/embed/${e.key}`}
                     className="h-[270px] w-[300px]"
-                  ></iframe>
+                    ></iframe>
                   <div className="w-[300px] h-[270px]  bg-none absolute z-50 top-0 cursor-pointer "></div>
                 </div>
 
