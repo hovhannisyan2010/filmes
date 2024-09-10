@@ -1,7 +1,7 @@
-
 import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
+import HeaderApp from "./components/HeaderApp";
 const ganre = [
   { id: 28, name: "action" },
   { id: 12, name: "adventure" },
@@ -34,46 +34,22 @@ function App() {
 
 
   useEffect(() => {
-    if (inp === "") {
-      fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
-        .then((res) => res.json())
-        .then((res) => {
-          if (inp === "") {
-            setPopulary(res.results)
-            if (res.total_pages) {
-              let arr = page > 1 ? [page - 1] : []
-              for (let i = page; i < res.total_pages; i++) {
-                arr.push(i)
-                if (i - page === 10) {
-                  break
-                }
-              }
-              setPageNums(arr)
+    fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setPopulary(res.results)
+        if (res.total_pages) {
+          let arr = page > 1 ? [page - 1] : []
+          for (let i = page; i < res.total_pages; i++) {
+            arr.push(i)
+            if (i - page === 5) {
+              break
             }
-            setGanres(ganre)
           }
+          setPageNums(arr)
         }
-        );
-    } else {
-
-      fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
-        .then((res) => res.json())
-        .then((res) => {
-          setPopulary(res.results)
-          if (res.total_pages) {
-            let arr = page > 1 ? [page - 1] : []
-            for (let i = page; i < res.total_pages; i++) {
-              arr.push(i)
-              if (i - page === 10) {
-                break
-              }
-            }
-            setPageNums(arr)
-          }
-          setGanres(ganre)
-        }
+      }
       );
-    }
     setPage(1)
   }, [inp]);
 
@@ -88,7 +64,7 @@ function App() {
             let arr = page > 1 ? [page - 1] : []
             for (let i = page; i < res.total_pages; i++) {
               arr.push(i)
-              if (i - page === 10) {
+              if (i - page === 5) {
                 break
               }
             }
@@ -99,7 +75,6 @@ function App() {
       }
       );
   }, [page]);
-
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/discover/movie?${api_key}&with_genres=${ganrenum}&page=${page}`)
       .then((res) => res.json())
@@ -109,7 +84,7 @@ function App() {
           let arr = page > 1 ? [page - 1] : []
           for (let i = page; i < res.total_pages; i++) {
             arr.push(i)
-            if (i - page === 10) {
+            if (i - page === 5) {
               break
             }
           }
@@ -118,36 +93,40 @@ function App() {
       })
   }, [ganrenum, page])
   const btn = document.querySelectorAll(".btn")
-
-  return <div className="flex justify-center items-center gap-[30px] flex-wrap">
-    <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />
-    <div className="flex justify-center items-center gap-[30px] flex-wrap pt-5">
-      {ganres.map((e, i) => {
-        return <button key={i} onClick={() => {
-          btn[i].classList.toggle("change")
-          setPage(1)
-          if (btn[i].className !== "btn") {
-            setganrenum([...ganrenum, e.id])
-          } else {
-            setganrenum(ganrenum.filter((elm) => elm !== e.id))
-          }
-        }} className="btn">{e.name}</button>
-      })}
-    </div>
+  return <div>
+    <HeaderApp/>
     <div className="flex justify-center items-center gap-[30px] flex-wrap">
-      {
-        populary.map((e) => {
-          return <Card films={e} key={e.id} />
-        })
-      }
-    </div>
-
-    <div className="flex gap-3 p-8">
-      {pageNums.map((e, i) => {
-        if (e >= 1) {
-          return <button key={i} onClick={() => setPage(e)} className="w-10 h-10 bg-white text-black">{e}</button>
+      <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />
+      <div className="w-full md:overflow-x-scroll px-2">
+      <div className="flex justify-center items-center gap-[30px] flex-wrap pt-5  md:flex-nowrap md:justify-start m-x-4 ">
+        {ganres.map((e, i) => {
+          return <button key={i} onClick={() => {
+            btn[i].classList.toggle("change")
+            setPage(1)
+            if (btn[i].className !== "btn") {
+              setganrenum([...ganrenum, e.id])
+            } else {
+              setganrenum(ganrenum.filter((elm) => elm !== e.id))
+            }
+          }} className="btn">{e.name}</button>
+        })}
+      </div>
+        </div>
+      <div className="flex justify-center items-center gap-[30px] flex-wrap smol:p-3">
+        {
+          populary.map((e) => {
+            return <Card films={e} key={e.id} />
+          })
         }
-      })}
+      </div>
+
+      <div className="w-full justify-center items-center flex gap-3 p-8">
+        {pageNums.map((e, i) => {
+          if (e >= 1) {
+            return <button key={i} onClick={() => setPage(e)} className="w-10 h-10 bg-white text-black">{e}</button>
+          }
+        })}
+      </div>
     </div>
   </div>;
 }
