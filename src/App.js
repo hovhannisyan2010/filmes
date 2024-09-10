@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 import HeaderApp from "./components/HeaderApp";
+import Layout from "./Layout";
 const ganre = [
   { id: 28, name: "action" },
   { id: 12, name: "adventure" },
@@ -34,7 +35,8 @@ function App() {
 
 
   useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
+  if(inp !== ""){   
+  fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
       .then((res) => res.json())
       .then((res) => {
         setPopulary(res.results)
@@ -51,6 +53,27 @@ function App() {
       }
       );
     setPage(1)
+  }else{
+    fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (inp === "") {
+          setPopulary(res.results)
+          if (res.total_pages) {
+            let arr = page > 1 ? [page - 1] : []
+            for (let i = page; i < res.total_pages; i++) {
+              arr.push(i)
+              if (i - page === 5) {
+                break
+              }
+            }
+            setPageNums(arr)
+          }
+          setGanres(ganre)
+        }
+      }
+      );
+  }
   }, [inp]);
 
 
@@ -94,6 +117,7 @@ function App() {
   }, [ganrenum, page])
   const btn = document.querySelectorAll(".btn")
   return <div>
+    <Layout/>
     <HeaderApp/>
     <div className="flex justify-center items-center gap-[30px] flex-wrap">
       <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />

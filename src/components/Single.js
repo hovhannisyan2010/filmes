@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
+import Layout from "../Layout";
+import Error from "./Error";
 const api_key = "api_key=9b702a6b89b0278738dab62417267c49";
 
 function Single() {
@@ -26,6 +28,7 @@ function Single() {
   }, []);
   return (
     <div className="w-full">
+      <Layout/>
       <Header />
       <img
         src={`https://image.tmdb.org/t/p/w500${single.backdrop_path}`}
@@ -34,9 +37,9 @@ function Single() {
       <div className="w-full h-[80vh] flex justify-center items-center gap-[100px]">
         <img
           src={`https://image.tmdb.org/t/p/w500${single.poster_path}`}
-          className="w-[350px] h-[500px] border-[30px] border-[rgba(0,0,0,0.7)] rounded-[30px] md:hidden"
+          className="w-[350px] h-[600px] border-[30px] border-[rgba(0,0,0,0.7)] rounded-[30px] md:hidden"
         />
-        <div className="w-[600px] h-[500px] p-[20px] bg-[rgb(0,0,0,0.7)] rounded-[30px] flex flex-col gap-5 ">
+        <div className="w-[600px] h-[600px] p-[20px] bg-[rgba(0,0,0,0.61)] rounded-[30px] flex flex-col gap-5 md:h-[600px]">
           <h1 className="text-3xl">{single.original_title}</h1>
           <h1 className="text-3xl">Date: {single.release_date}</h1>
           <h3>{single.overview}</h3>
@@ -85,7 +88,7 @@ function Single() {
         <iframe
           allowFullScreen
           src={`https://www.youtube.com/embed/${vid}`}
-          className="h-[80%] w-[70%] relative"
+          className="h-[50%] w-[90%] relative"
         ></iframe>
       </div> : null}
     </div>
