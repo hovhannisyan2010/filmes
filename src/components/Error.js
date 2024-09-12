@@ -1,11 +1,12 @@
 import React from 'react'
 import { AiOutlineFrown } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 
 function Error() {
   return (
     <div className='w-full flex flex-col items-center pt-48 gap-7'>
       <AiOutlineFrown className="text-[200px]" />
-      <h1 className="text-[100px]">this Page is not found</h1>
+      <button className='px-4 py-3 border-solid border-[2px] border-white'><Link to={"/"}>Home</Link></button>
     </div>
   )
 }
