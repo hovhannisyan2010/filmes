@@ -122,7 +122,7 @@ function App() {
     <div className="flex justify-center items-center gap-[30px] flex-wrap">
       <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />
       <div className="w-full md:overflow-x-scroll px-2">
-      <div className="flex justify-center items-center gap-[30px] flex-wrap pt-5  md:flex-nowrap md:justify-start m-x-4 ">
+      <div className="flex justify-center items-center gap-[30px] flex-wrap py-5   md:flex-nowrap md:justify-start m-x-4 ">
         {ganres.map((e, i) => {
           return <button key={i} onClick={() => {
             btn[i].classList.toggle("change")

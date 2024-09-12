@@ -2,8 +2,22 @@ import React from 'react'
 
 function Loading() {
     return (
-        <div className='w-full h-screen bg-black fixed z-[999] text-white top-0 flex justify-center items-center text-[30px]'>
-            Loading...
+        <div className='w-full h-screen bg-black fixed z-50'>
+            <div class="pl">
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__dot"></div>
+                <div class="pl__text">Loading…</div>
+            </div>
         </div>
     )
 }
