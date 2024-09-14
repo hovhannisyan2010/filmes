@@ -35,53 +35,28 @@ function App() {
 
 
   useEffect(() => {
-    if(inp !== ""){  
-  fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setPopulary(res.results)
-        if (res.total_pages) {
-          let arr = page > 1 ? [page - 1] : []
-          for (let i = page; i < res.total_pages; i++) {
-            arr.push(i)
-            if (i - page === 5) {
-              break
+    if(inp !== ""){   
+        fetch(`https://api.themoviedb.org/3/search/movie?${api_key}&query=${inp}&page=${page}`)
+            .then((res) => res.json())
+            .then((res) => {
+              setPopulary(res.results)
+              if (res.total_pages) {
+                let arr = page > 1 ? [page - 1] : []
+                for (let i = page; i < res.total_pages; i++) {
+                  arr.push(i)
+                  if (i - page === 5) {
+                    break
+                  }
+                }
+                setPageNums(arr)
+              }
             }
-          }
-          setPageNums(arr)
-        }
-      }
-      );
-    setPage(1)
+            );
+          setPage(1)
   }else{
     fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
       .then((res) => res.json())
       .then((res) => {
-        if (inp === "") {
-          setPopulary(res.results)
-          if (res.total_pages) {
-            let arr = page > 1 ? [page - 1] : []
-            for (let i = page; i < res.total_pages; i++) {
-              arr.push(i)
-              if (i - page === 5) {
-                break
-              }
-            }
-            setPageNums(arr)
-          }
-          setGanres(ganre)
-        }
-      }
-    );
-  }
-  setPage(1) 
-  }, [inp ,page]);
-
-
-  useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/popular?${api_key}&page=${page}`)
-      .then((res) => res.json())
-      .then((res) => {
           setPopulary(res.results)
           if (res.total_pages) {
             let arr = page > 1 ? [page - 1] : []
@@ -96,9 +71,11 @@ function App() {
           setGanres(ganre)
       }
       );
-  }, [page]);
+  }
+  }, [inp , page]);
+
   useEffect(() => {
-      fetch(`https://api.themoviedb.org/3/discover/movie?${api_key}&with_genres=${ganrenum}&page=${page}`)
+    fetch(`https://api.themoviedb.org/3/discover/movie?${api_key}&with_genres=${ganrenum}&page=${page}`)
       .then((res) => res.json())
       .then((res) => {
         setPopulary(res.results)
@@ -113,15 +90,15 @@ function App() {
           setPageNums(arr)
         }
       })
-    }, [ganrenum, page])
-    const btn = document.querySelectorAll(".btn")
-    return <div>
+  }, [ganrenum, page])
+  const btn = document.querySelectorAll(".btn")
+  return <div>
     <Layout/>
     <HeaderApp/>
     <div className="flex justify-center items-center gap-[30px] flex-wrap">
-      <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7 md:p-2" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />
+      <input type="text" className="p-3 text-black w-3/4 text-2xl rounded-3xl m-7" onChange={(e) => setInp(e.target.value)} value={inp} placeholder="search a movie" />
       <div className="w-full md:overflow-x-scroll px-2">
-      <div className="flex justify-center items-center gap-[30px] flex-wrap py-5   md:flex-nowrap md:justify-start m-x-4 ">
+      <div className="flex justify-center items-center gap-[30px] flex-wrap pt-5  md:flex-nowrap md:justify-start m-x-4 ">
         {ganres.map((e, i) => {
           return <button key={i} onClick={() => {
             btn[i].classList.toggle("change")
@@ -142,7 +119,6 @@ function App() {
           })
         }
       </div>
-
       <div className="w-full justify-center items-center flex gap-3 p-8">
         {pageNums.map((e, i) => {
           if (e >= 1) {
@@ -153,5 +129,4 @@ function App() {
     </div>
   </div>;
 }
-
 export default App;

@@ -12,7 +12,7 @@ root.render(
       <Routes>
         <Route path='/' element={<App />} />
         <Route path="/single/:id" element={<Single />} />
-        <Route path='*' element={<Error />} />
+        <Route path='/single/:*' element={<Error />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
